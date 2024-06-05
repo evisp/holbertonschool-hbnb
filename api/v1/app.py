@@ -1,12 +1,11 @@
 import sys
 import os
 
-# Add the current directory to the Python path
-current_dir = os.path.dirname(os.path.realpath(__file__))
-sys.path.append(current_dir)
+# Add the parent directory of the current directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from flask import Flask
-from v1.urls import register_routes
+from urls import register_routes
 from persistence.file_storage import FileStorage
 
 app = Flask(__name__)

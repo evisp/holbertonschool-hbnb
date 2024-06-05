@@ -6,6 +6,7 @@ from models.city import City
 from models.country import Country
 from models.amenity import Amenity
 
+
 def register_routes(app, storage):
     
     @app.route('/v1/users', methods=['POST'])
