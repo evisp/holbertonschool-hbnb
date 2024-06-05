@@ -5,7 +5,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))))
 
 from flask import Flask
-from urls import register_routes
+from .urls import register_routes
 from persistence.file_storage import FileStorage
 
 app = Flask(__name__)
