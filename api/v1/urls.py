@@ -6,53 +6,46 @@ from models.city import City
 from models.country import Country
 from models.amenity import Amenity
 
-
-def register_routes(app, storage):
+def register_routes(app, data_manager):
     
     @app.route('/v1/users', methods=['POST'])
     def create_user_v1():
         data = request.json
         user = User(**data)
-        storage.new(user)
-        storage.save()
+        data_manager.save(user)
         return jsonify(user.__dict__), 201
 
     @app.route('/v1/places', methods=['POST'])
     def create_place_v1():
         data = request.json
         place = Place(**data)
-        storage.new(place)
-        storage.save()
+        data_manager.save(place)
         return jsonify(place.__dict__), 201
 
     @app.route('/v1/reviews', methods=['POST'])
     def create_review_v1():
         data = request.json
         review = Review(**data)
-        storage.new(review)
-        storage.save()
+        data_manager.save(review)
         return jsonify(review.__dict__), 201
 
     @app.route('/v1/cities', methods=['POST'])
     def create_city_v1():
         data = request.json
         city = City(**data)
-        storage.new(city)
-        storage.save()
+        data_manager.save(city)
         return jsonify(city.__dict__), 201
 
     @app.route('/v1/countries', methods=['POST'])
     def create_country_v1():
         data = request.json
         country = Country(**data)
-        storage.new(country)
-        storage.save()
+        data_manager.save(country)
         return jsonify(country.__dict__), 201
 
     @app.route('/v1/amenities', methods=['POST'])
     def create_amenity_v1():
         data = request.json
         amenity = Amenity(**data)
-        storage.new(amenity)
-        storage.save()
+        data_manager.save(amenity)
         return jsonify(amenity.__dict__), 201
