@@ -156,7 +156,7 @@ Converts the amenity object to a dictionary representation.
 ```python
 from app.models.amenity import Amenity
 
-# Create an Amenity object
+# Create an object
 amenity = Amenity(
     name="Swimming Pool",
     description="A large outdoor swimming pool."
