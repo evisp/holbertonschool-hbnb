@@ -13,8 +13,9 @@ class BaseModel:
 
     def to_dict(self):
         """Return a dictionary representation of the model"""
+        # Ensure created_at and updated_at are datetime objects
         return {
             "id": self.id,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at.isoformat() if isinstance(self.created_at, datetime) else self.created_at,
+            "updated_at": self.updated_at.isoformat() if isinstance(self.updated_at, datetime) else self.updated_at
         }
