@@ -42,7 +42,7 @@ class InMemoryRepository(Repository):
     def update(self, obj_id, data):
         if obj_id in self._storage:
             obj = self._storage[obj_id]
-            # Assuming obj has an update method or similar
+            # Update the attributes of the object based on the provided data
             for key, value in data.items():
                 setattr(obj, key, value)
         else:
