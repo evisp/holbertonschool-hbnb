@@ -145,3 +145,102 @@ The `User` model represents the data structure for user-related operations. It i
 - Only `first_name`, `last_name`, `email`, and `password` can be updated. If any of these fields are missing, they will not be updated.
 - If the user does not exist, a 404 error is returned.
 - If the input data is invalid, a 400 error is returned.
+
+
+Sure, here's the README section specifically for the Amenity endpoints:
+
+---
+
+## Amenity Endpoints
+
+### POST /api/v1/amenities/
+
+Create a new amenity.
+
+**Request Body:**
+```json
+{
+    "name": "Pool",
+    "description": "A large outdoor pool."
+}
+```
+
+**Responses:**
+- **201 Created**: Returns a success message and the ID of the created amenity.
+- **400 Bad Request**: Returns an error message if the input data is invalid.
+
+**Example Response:**
+```json
+{
+    "id": "12345",
+    "message": "Amenity created successfully"
+}
+```
+
+### GET /api/v1/amenities/
+
+Retrieve a list of all amenities.
+
+**Responses:**
+- **200 OK**: Returns a list of amenities, each with `id`, `name`, and `description`.
+
+**Example Response:**
+```json
+[
+    {
+        "id": "12345",
+        "name": "Pool",
+        "description": "A large outdoor pool."
+    },
+    {
+        "id": "67890",
+        "name": "Gym",
+        "description": "Fully equipped fitness center."
+    }
+]
+```
+
+### GET /api/v1/amenities/{amenity_id}
+
+Retrieve details of a specific amenity by ID.
+
+**Responses:**
+- **200 OK**: Returns the details of the specified amenity.
+- **404 Not Found**: Returns an error message if the amenity with the given ID does not exist.
+
+**Example Response:**
+```json
+{
+    "id": "12345",
+    "name": "Pool",
+    "description": "A large outdoor pool."
+}
+```
+
+### PUT /api/v1/amenities/{amenity_id}
+
+Update an existing amenity's details.
+
+**Request Body:**
+```json
+{
+    "name": "Updated Pool",
+    "description": "An updated description for the pool."
+}
+```
+
+**Responses:**
+- **200 OK**: Returns a success message if the amenity was updated successfully.
+- **404 Not Found**: Returns an error message if the amenity with the given ID does not exist.
+- **400 Bad Request**: Returns an error message if the input data is invalid.
+
+**Example Response:**
+```json
+{
+    "message": "Amenity updated successfully"
+}
+```
+
+---
+
+Feel free to adjust the content as needed based on your specific implementation and any additional details you might have.
