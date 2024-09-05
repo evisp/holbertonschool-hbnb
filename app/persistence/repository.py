@@ -32,9 +32,14 @@ class InMemoryRepository(Repository):
 
     def add(self, obj):
         self._storage[obj.id] = obj
-
+    
     def get(self, obj_id):
-        return self._storage.get(obj_id)
+        obj = self._storage.get(obj_id)
+        if obj:
+            print(f"Retrieved object: {obj_id}")
+        else:
+            print(f"Object not found: {obj_id}")
+        return obj
 
     def get_all(self):
         return list(self._storage.values())
