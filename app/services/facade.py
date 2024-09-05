@@ -4,11 +4,17 @@ from app.models.amenity import Amenity
 from app.models.place import Place
 
 class HBnBFacade:
+    _shared_user_repo = InMemoryRepository()
+    _shared_place_repo = InMemoryRepository()
+    _shared_review_repo = InMemoryRepository()
+    _shared_amenity_repo = InMemoryRepository()
+
     def __init__(self):
-        self.user_repo = InMemoryRepository()
-        self.place_repo = InMemoryRepository()
-        self.review_repo = InMemoryRepository()
-        self.amenity_repo = InMemoryRepository()
+        self.user_repo = HBnBFacade._shared_user_repo
+        self.place_repo = HBnBFacade._shared_place_repo
+        self.review_repo = HBnBFacade._shared_review_repo
+        self.amenity_repo = HBnBFacade._shared_amenity_repo
+
 
     def create_user(self, user_data):
         user = User(**user_data)
@@ -58,40 +64,33 @@ class HBnBFacade:
         self.amenity_repo.update(amenity_id, amenity.to_dict())
         return amenity
     
-    # --- Place Operations (New Section) ---
     def create_place(self, place_data):
         owner_id = place_data['owner_id']
         owner = self.user_repo.get(owner_id)
 
-        # Debugging output
-        print(f"Stored IDs: {list(self.user_repo._storage.keys())}")
-        print(f"Searching for ID: {owner_id}")
-
-        # Debugging output
-        print(f"Attempting to retrieve user with ID: {owner_id}")
-        if owner:
-            print(f"Owner found: {owner.to_dict()}")
-        else:
-            print(f"Owner not found for ID: {owner_id}")
-    
-
         if not owner:
             raise ValueError("Owner does not exist")
         
+        # Remove the 'owner' key if it exists
+        place_data.pop('owner', None)
+
         place = Place(**place_data)
         self.place_repo.add(place)
         return place
-
-
-
+    
     def get_place(self, place_id):
-        # Retrieve the place and add owner and amenities details
+        # Retrieve the place object
         place = self.place_repo.get(place_id)
         if not place:
             return None
 
+        # Ensure place is a Place object before converting to dict
+        if isinstance(place, dict):
+            place_dict = place  # Assume it's already a dict
+        else:
+            place_dict = place.to_dict()  # Convert Place object to dict
+
         owner = self.user_repo.get(place.owner_id)
-        place_dict = place.to_dict()
 
         # Include owner details in the returned dictionary
         if owner:
@@ -102,21 +101,27 @@ class HBnBFacade:
                 "email": owner.email
             }
 
-        # Include amenities details in the returned dictionary
+        # Ensure 'amenities' key exists and is iterable
+        amenities_ids = place_dict.get('amenities', [])
         place_dict['amenities'] = [self.amenity_repo.get(amenity_id).to_dict()
-                                   for amenity_id in place_dict['amenities']]
+                                for amenity_id in amenities_ids]
 
         return place_dict
 
     def get_all_places(self):
-        # Retrieve all places
+        # Retrieve all place objects
         places = self.place_repo.get_all()
 
         # Convert each place to dict and include owner and amenities details
         place_list = []
         for place in places:
+            # Ensure place is a Place object before converting to dict
+            if isinstance(place, dict):
+                place_dict = place  # Assume it's already a dict
+            else:
+                place_dict = place.to_dict()  # Convert Place object to dict
+
             owner = self.user_repo.get(place.owner_id)
-            place_dict = place.to_dict()
 
             if owner:
                 place_dict['owner'] = {
@@ -126,12 +131,17 @@ class HBnBFacade:
                     "email": owner.email
                 }
 
+            # Ensure 'amenities' key exists and is iterable
+            amenities_ids = place_dict.get('amenities', [])
             place_dict['amenities'] = [self.amenity_repo.get(amenity_id).to_dict()
-                                       for amenity_id in place_dict['amenities']]
+                                    for amenity_id in amenities_ids]
 
             place_list.append(place_dict)
 
         return place_list
+
+
+
 
     def update_place(self, place_id, place_data):
         # Fetch the existing place

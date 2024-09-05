@@ -23,20 +23,16 @@ class PlaceList(Resource):
     def post(self):
         """Register a new place"""
         place_data = api.payload
-        print(f"Received payload: {place_data}")
         
         owner_id = place_data.get('owner_id')
-        print(f"Received owner_id: {owner_id} of type {type(owner_id)}")
-
         owner = facade.get_user(owner_id)
-        if owner:
-            print(f"Found owner: {owner.id} of type {type(owner.id)}")
-        else:
-            print("Owner not found")
 
         if not owner:
             return {'error': 'Owner not found'}, 400
-        
+
+        # Populate the 'owner' field with the retrieved user object
+        place_data['owner'] = owner.to_dict()
+
         new_place = facade.create_place(place_data)
         return {'id': str(new_place.id), 'message': 'Place created successfully'}, 201
 
