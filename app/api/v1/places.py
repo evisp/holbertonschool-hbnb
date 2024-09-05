@@ -42,10 +42,10 @@ class PlaceList(Resource):
         places = facade.get_all_places()
         return [
             {
-                'id': str(place.id),
-                'title': place.title,
-                'latitude': place.latitude,
-                'longitude': place.longitude
+                'id': str(place.get('id')),  # Ensure it's a dictionary
+                'title': place.get('title'),
+                'latitude': place.get('latitude'),
+                'longitude': place.get('longitude')
             }
             for place in places
         ], 200
@@ -60,15 +60,19 @@ class PlaceResource(Resource):
         if not place:
             return {'error': 'Place not found'}, 404
 
-        place_data = place.to_dict()
+        # Ensure place is a dictionary
+        place_data = place if isinstance(place, dict) else place.to_dict()
+
         # Add owner details to the response
-        owner = facade.get_user(place.owner_id)
+        owner = facade.get_user(place_data['owner_id'])
         place_data['owner'] = owner.to_dict() if owner else {}
 
         # Add amenities details to the response
-        place_data['amenities'] = [amenity.to_dict() for amenity in place.amenities]
+        place_data['amenities'] = [facade.get_amenity(amenity_id).to_dict()
+                                   for amenity_id in place_data.get('amenities', [])]
 
         return place_data, 200
+
 
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')

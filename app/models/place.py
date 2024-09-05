@@ -67,8 +67,9 @@ class Place(BaseModel):
         else:
             raise ValueError("Review not found in this place")
 
+    """
     def to_dict(self):
-        """Override to_dict to include amenities and owner details"""
+        # Override to_dict to include amenities and owner details
         place_dict = super().to_dict()
         place_dict.update({
             "title": self.title,
@@ -85,3 +86,20 @@ class Place(BaseModel):
             }
         })
         return place_dict
+    """
+
+    def to_dict(self):
+        """Override to_dict to include amenities and owner details"""
+        place_dict = super().to_dict()
+        place_dict.update({
+            "title": self.title,
+            "description": self.description,
+            "price": self.price,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "owner_id": self.owner_id,
+            "amenities": [a.id for a in self.amenities],
+            "reviews": [r.id for r in self.reviews]
+        })
+        return place_dict
+

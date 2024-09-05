@@ -85,12 +85,9 @@ class HBnBFacade:
             return None
 
         # Ensure place is a Place object before converting to dict
-        if isinstance(place, dict):
-            place_dict = place  # Assume it's already a dict
-        else:
-            place_dict = place.to_dict()  # Convert Place object to dict
+        place_dict = place.to_dict() if not isinstance(place, dict) else place
 
-        owner = self.user_repo.get(place.owner_id)
+        owner = self.user_repo.get(place_dict.get('owner_id'))
 
         # Include owner details in the returned dictionary
         if owner:
@@ -116,12 +113,9 @@ class HBnBFacade:
         place_list = []
         for place in places:
             # Ensure place is a Place object before converting to dict
-            if isinstance(place, dict):
-                place_dict = place  # Assume it's already a dict
-            else:
-                place_dict = place.to_dict()  # Convert Place object to dict
+            place_dict = place.to_dict() if not isinstance(place, dict) else place
 
-            owner = self.user_repo.get(place.owner_id)
+            owner = self.user_repo.get(place_dict.get('owner_id'))
 
             if owner:
                 place_dict['owner'] = {
@@ -139,10 +133,8 @@ class HBnBFacade:
             place_list.append(place_dict)
 
         return place_list
-
-
-
-
+    
+    
     def update_place(self, place_id, place_data):
         # Fetch the existing place
         place = self.place_repo.get(place_id)
