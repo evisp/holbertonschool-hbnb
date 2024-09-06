@@ -71,8 +71,11 @@ class PlaceResource(Resource):
         place_data['amenities'] = [facade.get_amenity(amenity_id).to_dict()
                                    for amenity_id in place_data.get('amenities', [])]
 
-        return place_data, 200
+        # Add reviews to the response
+        reviews = facade.get_reviews_for_place(place_id)
+        place_data['reviews'] = [review.to_dict() for review in reviews]
 
+        return place_data, 200
 
     @api.expect(place_model)
     @api.response(200, 'Place updated successfully')
@@ -85,6 +88,5 @@ class PlaceResource(Resource):
         if not place:
             return {'error': 'Place not found'}, 404
 
-        # Additional validation could be applied to place_data here
         updated_place = facade.update_place(place_id, place_data)
         return {'message': 'Place updated successfully'}, 200

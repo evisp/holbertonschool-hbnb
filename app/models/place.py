@@ -98,8 +98,11 @@ class Place(BaseModel):
             "latitude": self.latitude,
             "longitude": self.longitude,
             "owner_id": self.owner_id,
-            "amenities": [a.id for a in self.amenities],
-            "reviews": [r.id for r in self.reviews]
+            # "amenities": [a.id for a in self.amenities],
+            # "reviews": [r.id for r in self.reviews]
+            # change to below when implementing reviews endpoints
+            "amenities": self.amenities,  # Assuming amenities are stored as a list of IDs
+            "reviews": self.reviews  # Return the list of review IDs directly
         })
         return place_dict
 
