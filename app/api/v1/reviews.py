@@ -33,7 +33,7 @@ class ReviewList(Resource):
         reviews = facade.get_all_reviews()
         return [
             {
-                'id': str(review.get('id')),  # Ensure it's a dictionary
+                'id': str(review.id),  # Ensure it's a dictionary
                 'text': review.get('text'),
                 'rating': review.get('rating'),
                 'place_id': review.get('place_id'),
