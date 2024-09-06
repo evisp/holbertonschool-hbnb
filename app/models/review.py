@@ -8,6 +8,9 @@ class Review(BaseModel):
         self.place_id = place_id
         self.user_id = user_id
 
+         # Validate the rating upon initialization
+        self.validate_rating()
+
     def validate_rating(self):
         """Ensure rating is between 1 and 5"""
         if not (1 <= self.rating <= 5):
