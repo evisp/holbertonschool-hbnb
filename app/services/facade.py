@@ -103,6 +103,11 @@ class HBnBFacade:
         amenities_ids = place_dict.get('amenities', [])
         place_dict['amenities'] = [self.amenity_repo.get(amenity_id).to_dict()
                                 for amenity_id in amenities_ids]
+        
+        # Fetch reviews
+        reviews = [self.review_repo.get(review_id).to_dict()
+                for review_id in place_dict.get('reviews', [])]
+        place_dict['reviews'] = reviews
 
         return place_dict
 
@@ -173,10 +178,13 @@ class HBnBFacade:
         self.review_repo.add(review)
         
         # Add review to the place
-        place.reviews.append(review.id)  # Assuming Place model has a reviews list
+        if not hasattr(place, 'reviews'):
+            place.reviews = []
+        place.reviews.append(review.id)  # Ensure review ID is stored
         self.place_repo.update(place_id, place.to_dict())
 
         return review
+
 
     def get_review(self, review_id):
         review = self.review_repo.get(review_id)
