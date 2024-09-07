@@ -1,168 +1,81 @@
-# HBNB
+# HBnB Evolution
 
-## Business Logic  (Models)
+## Overview
 
-### User Model
+HBnB Evolution is a simplified application inspired by AirBnB, designed to manage users, places, amenities, and reviews. The project is organized into multiple layers to ensure clean architecture, maintainability, and scalability. The main components include:
 
-The `User` model represents a user in the HBnB system. Each user has attributes for personal details and administrative status.
+- **API**: Exposes the endpoints for interacting with the application.
+- **Models**: Define the core data structures and business logic.
+- **Persistence**: Handles data storage and retrieval.
+- **Facade (Services)**: Acts as an intermediary between the API and the persistence layer, coordinating business logic.
 
-#### Attributes
-- `first_name` (str): The user's first name.
-- `last_name` (str): The user's last name.
-- `email` (str): The user's email address.
-- `password` (str): The user's password.
-- `is_admin` (bool, default=False): Indicates whether the user is an administrator.
 
-#### Methods
-- `validate_email()`: Validates the format of the email address using regex.
-- `register()`: Simulates user registration. This method currently validates the email format and can be expanded with additional registration logic.
-- `update_profile(first_name=None, last_name=None, email=None, password=None)`: Updates the user's profile information. It allows updating the first name, last name, email, and password.
-- `delete()`: Simulates user deletion. This method is a placeholder for future deletion logic.
+## How It All Connects
 
-#### Example Usage
-```python
-user = User(first_name="Alice", last_name="Smith", email="alice.smith@example.com", password="password123")
-user.validate_email()
-user.register()
-user.update_profile(email="new.email@example.com")
-user.delete()
-```
+The application is structured to ensure that each component has a well-defined role:
 
-### Place Model
+1. **API**: Handles HTTP requests and routes them to the appropriate Facade methods.
+2. **Facade**: Coordinates between API calls and the business logic encapsulated in models and persistence operations.
+3. **Models**: Define the data structures and business rules that govern the application’s entities.
+4. **Persistence**: Manages the data storage, ensuring that models are saved and retrieved as needed.
 
-The `Place` model represents a property listed on the HBnB platform. Each place has attributes that describe its details and functionality to manage amenities and reviews.
+Each component is designed to be modular and can be updated or replaced without impacting the overall system, making the project scalable and maintainable.
 
-### Attributes
-- `title` (str): The title of the place.
-- `description` (str): A detailed description of the place.
-- `price` (float): The price per night for booking the place.
-- `latitude` (float): The latitude coordinate of the place's location.
-- `longitude` (float): The longitude coordinate of the place's location.
-- `owner_id` (str): The unique identifier of the user who owns the place.
-- `amenities` (list): A list that stores amenities associated with the place.
-- `reviews` (list): A list that stores reviews associated with the place.
 
-#### Methods
+## Key Components
 
-##### `add_amenity(amenity)`
-Adds an amenity to the place if it is not already included in the amenities list.
+### API
 
-**Parameters:**
-- `amenity`: The amenity to be added.
+The API layer is built using Flask-RESTx, providing RESTful endpoints for each entity in the system (Users, Amenities, Places, Reviews). The endpoints handle CRUD operations, input validation, and error handling.
 
-##### `add_review(review)`
-Adds a review to the place if the review is an instance of the `Review` class.
+- **Endpoints**: Organized by entity (e.g., `/users`, `/places`, `/amenities`, `/reviews`).
+- **Documentation**: Each endpoint is documented with expected input and output formats.
 
-**Parameters:**
-- `review`: An instance of the `Review` class to be added.
+[See the API README for more details](./app/api/v1/README.md)
 
-##### `remove_review(review)`
-Removes a review from the place if it exists in the reviews list.
+### Models
 
-**Parameters:**
-- `review`: An instance of the `Review` class to be removed.
+The Models layer defines the data structures representing the core entities in the system, such as User, Place, Amenity, and Review. Each model includes validation logic, methods for converting to and from dictionary representations, and integration with the persistence layer.
 
-##### `to_dict()`
-Converts the place object to a dictionary representation, including the list of amenities.
+- **Entities**: User, Place, Amenity, Review.
+- **Inheritance**: Common properties and methods are encapsulated in a `BaseModel` class.
 
-**Returns:**
-- `dict`: A dictionary with place attributes and amenities.
+[See the Models README for more details](./app/models/README.md)
 
-#### Example Usage
+### Persistence
 
-```python
-from app.models.place import Place
-from app.models.review import Review
+The Persistence layer abstracts the data storage mechanism. Initially, an in-memory repository was used, but this can be replaced with a database-backed solution. This layer provides CRUD operations and query methods that are used by the Facade.
 
-# Create a Place object
-place = Place(
-    title="Cozy Apartment",
-    description="A nice place to stay",
-    price=100,
-    latitude=37.7749,
-    longitude=-122.4194,
-    owner_id="user_id"
-)
+- **Repository Pattern**: Abstracts data access.
+- **InMemoryRepository**: The initial implementation for development purposes.
 
-# Add an amenity
-place.add_amenity("Wi-Fi")
+[See the Persistence README for more details](./app/persistence/README.md)
 
-# Create a Review object
-review = Review(text="Great stay!", rating=5, place_id="place_id", user_id="user_id")
+### Facade (Services)
 
-# Add a review to the place
-place.add_review(review)
+The Facade layer, also known as Services, acts as the intermediary between the API and the Persistence layer. It encapsulates the business logic and ensures that operations are performed consistently and correctly.
 
-# Remove a review from the place
-place.remove_review(review)
+- **HBnBFacade**: The central class coordinating interactions between models, repositories, and API.
+- **Patterns**: Implements a Facade pattern to simplify API interaction with the underlying layers.
 
-# Convert the Place object to a dictionary
-place_dict = place.to_dict()
-```
+[See the Services README for more details](./app/services/README.md)
 
-### Review Model
+## Configurations and Dependencies
 
-The `Review` model represents a review left by a user for a place on the HBnB platform. Each review contains details about the user's experience and rating.
+### Config
+The [config file](./config.py) contains environment-specific settings, such as secret keys and debug flags. It supports different configurations for development and production environments.
 
-#### Attributes
-- `text` (str): The content of the review left by the user.
-- `rating` (int): The rating given by the user, typically on a scale (e.g., 1 to 5).
-- `place_id` (str): The unique identifier of the place being reviewed.
-- `user_id` (str): The unique identifier of the user who left the review.
+- **Config Class**: Manages application configuration settings.
+- **DevelopmentConfig**: Extends the base config with development-specific settings.
 
-#### Methods
+### Requirements File
 
-##### `to_dict()`
-Converts the review object to a dictionary representation.
+The [requirements](./requirements.txt) file lists all the dependencies needed to run the HBnB Evolution project. It includes Flask, Flask-RESTx, and pytest for testing.
 
-**Returns:**
-- `dict`: A dictionary with review attributes.
+- **Installation**: Use `pip install -r requirements.txt` to install dependencies.
 
-##### Example Usage
+### Run File
 
-```python
-from app.models.review import Review
+The [run](./run.py) file is used to start the Flask application. It initializes the application and runs it with the specified configuration settings.
 
-# Create a Review object
-review = Review(
-    text="Great stay!",
-    rating=5,
-    place_id="place_id",
-    user_id="user_id"
-)
-
-# Convert the Review object to a dictionary
-review_dict = review.to_dict()
-```
-
-### Amenity
-
-The `Amenity` model represents an amenity that can be associated with a place on the HBnB platform. Amenities are features or services provided by a place that can enhance the user's experience.
-
-#### Attributes
-- `name` (str): The name of the amenity (e.g., "Pool", "WiFi").
-- `description` (str): A description of the amenity, detailing what it offers.
-
-#### Methods
-
-##### `to_dict()`
-Converts the amenity object to a dictionary representation.
-
-**Returns:**
-- `dict`: A dictionary with amenity attributes.
-
-#### Example Usage
-
-```python
-from app.models.amenity import Amenity
-
-# Create an object
-amenity = Amenity(
-    name="Swimming Pool",
-    description="A large outdoor swimming pool."
-)
-
-# Convert the Amenity object to a dictionary
-amenity_dict = amenity.to_dict()
-```
-
+- **Usage**: Run the application using `python run.py`.
