@@ -9,6 +9,8 @@ HBnB Evolution is a simplified application inspired by AirBnB, designed to manag
 - **Persistence**: Handles data storage and retrieval.
 - **Facade (Services)**: Acts as an intermediary between the API and the persistence layer, coordinating business logic.
 
+![Class Diagram](../../figs/packagediagram.jpeg)
+
 
 ## How It All Connects
 
