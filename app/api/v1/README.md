@@ -1,246 +1,228 @@
-# API Documentation
+# API Endpoints
 
-## Users
+This documentation provides an overview of the RESTful API endpoints for the HBnB Evolution project. These endpoints allow clients to interact with the application's core entities: **Users**, **Amenities**, **Places**, and **Reviews**. Each section outlines the available operations and the expected inputs and outputs.
 
-### Namespace: `/users`
+## Overview
+- **Base URL:** `/api/v1/`
+- **Content-Type:** `application/json`
+- **Authorization:** No authorization is required for these endpoints.
 
-The `users` namespace handles operations related to user management. It provides endpoints to create, retrieve, and update user information.
+## Users API
+The Users API manages operations related to user entities, including user registration, retrieval, and updating user profiles.
 
-### Models
+### **Endpoint:** `/users/`
+- **POST**: Register a new user.
+  - **Request Body**:
+    ```json
+    {
+      "first_name": "string",
+      "last_name": "string",
+      "email": "string",
+      "password": "string",
+      "is_admin": "boolean"  # Optional
+    }
+    ```
+  - **Responses**:
+    - `201`: User successfully created.
+    - `400`: Email already registered or invalid input data.
 
-#### User Model
-
-The `User` model represents the data structure for user-related operations. It includes the following fields:
-
-- **first_name** (string, required): The first name of the user.
-- **last_name** (string, required): The last name of the user.
-- **email** (string, required): The email address of the user.
-- **password** (string, required): The password for the user account.
-- **is_admin** (boolean, optional): Indicates whether the user has administrative privileges.
-
-### Endpoints
-
-#### `POST /users`
-
-**Description**: Register a new user.
-
-**Request Format**:
-```json
-{
-    "first_name": "string",
-    "last_name": "string",
-    "email": "string",
-    "password": "string",
-    "is_admin": boolean
-}
-```
-
-**Responses**:
-- **201 Created**: User successfully created.
-  ```json
-  {
-      "id": "string",
-      "message": "User created successfully"
-  }
-  ```
-- **400 Bad Request**: Email already registered or invalid input data.
-  ```json
-  {
-      "error": "string"
-  }
-  ```
-
-**Notes**:
-- The system checks for email uniqueness. If the email is already registered, a 400 error is returned.
-- Input data must include `first_name`, `last_name`, `email`, and `password`.
-
-#### `GET /users`
-
-**Description**: Retrieve a list of all users.
-
-**Responses**:
-- **200 OK**: Returns a list of users.
-  ```json
-  [
-      {
+- **GET**: Retrieve all users.
+  - **Responses**:
+    - `200`: Successfully retrieved a list of users.
+    - **Response Example**:
+      ```json
+      [
+        {
           "id": "string",
           "first_name": "string",
           "last_name": "string",
           "email": "string"
-      }
-  ]
-  ```
+        }
+      ]
+      ```
 
-**Notes**:
-- The response includes a list of all users with their `id`, `first_name`, `last_name`, and `email`.
+### **Endpoint:** `/users/<user_id>`
+- **GET**: Retrieve user details by ID.
+  - **Responses**:
+    - `200`: Successfully retrieved user details.
+    - `404`: User not found.
 
-#### `GET /users/<user_id>`
-
-**Description**: Retrieve user details by user ID.
-
-**Request Parameters**:
-- **user_id** (path parameter): The ID of the user to retrieve.
-
-**Responses**:
-- **200 OK**: Returns the user details.
-  ```json
-  {
-      "id": "string",
-      "created_at": "string",
-      "updated_at": "string",
+- **PUT**: Update user information.
+  - **Request Body**:
+    ```json
+    {
       "first_name": "string",
       "last_name": "string",
       "email": "string",
-      "is_admin": boolean
-  }
-  ```
-- **404 Not Found**: User not found.
-  ```json
-  {
-      "error": "User not found"
-  }
-  ```
-
-**Notes**:
-- Returns the user’s details including `id`, `created_at`, `updated_at`, `first_name`, `last_name`, `email`, and `is_admin`.
-
-#### `PUT /users/<user_id>`
-
-**Description**: Update user information.
-
-**Request Format**:
-```json
-{
-    "first_name": "string",
-    "last_name": "string",
-    "email": "string",
-    "password": "string"
-}
-```
-
-**Request Parameters**:
-- **user_id** (path parameter): The ID of the user to update.
-
-**Responses**:
-- **200 OK**: User updated successfully.
-  ```json
-  {
-      "message": "User updated successfully"
-  }
-  ```
-- **404 Not Found**: User not found.
-  ```json
-  {
-      "error": "User not found"
-  }
-  ```
-- **400 Bad Request**: Invalid input data.
-  ```json
-  {
-      "error": "Invalid input data"
-  }
-  ```
-
-**Notes**:
-- Only `first_name`, `last_name`, `email`, and `password` can be updated. If any of these fields are missing, they will not be updated.
-- If the user does not exist, a 404 error is returned.
-- If the input data is invalid, a 400 error is returned.
-
-
-Sure, here's the README section specifically for the Amenity endpoints:
-
----
-
-## Amenity Endpoints
-
-### POST /api/v1/amenities/
-
-Create a new amenity.
-
-**Request Body:**
-```json
-{
-    "name": "Pool",
-    "description": "A large outdoor pool."
-}
-```
-
-**Responses:**
-- **201 Created**: Returns a success message and the ID of the created amenity.
-- **400 Bad Request**: Returns an error message if the input data is invalid.
-
-**Example Response:**
-```json
-{
-    "id": "12345",
-    "message": "Amenity created successfully"
-}
-```
-
-### GET /api/v1/amenities/
-
-Retrieve a list of all amenities.
-
-**Responses:**
-- **200 OK**: Returns a list of amenities, each with `id`, `name`, and `description`.
-
-**Example Response:**
-```json
-[
-    {
-        "id": "12345",
-        "name": "Pool",
-        "description": "A large outdoor pool."
-    },
-    {
-        "id": "67890",
-        "name": "Gym",
-        "description": "Fully equipped fitness center."
+      "password": "string"  # Optional
     }
-]
-```
+    ```
+  - **Responses**:
+    - `200`: User successfully updated.
+    - `404`: User not found.
+    - `400`: Invalid input data.
 
-### GET /api/v1/amenities/{amenity_id}
+## Amenities API
+The Amenities API manages operations related to amenity entities, including adding new amenities and retrieving or updating existing amenities.
 
-Retrieve details of a specific amenity by ID.
+### **Endpoint:** `/amenities/`
+- **POST**: Register a new amenity.
+  - **Request Body**:
+    ```json
+    {
+      "name": "string",
+      "description": "string"  # Optional
+    }
+    ```
+  - **Responses**:
+    - `201`: Amenity successfully created.
+    - `400`: Invalid input data.
 
-**Responses:**
-- **200 OK**: Returns the details of the specified amenity.
-- **404 Not Found**: Returns an error message if the amenity with the given ID does not exist.
+- **GET**: Retrieve all amenities.
+  - **Responses**:
+    - `200`: Successfully retrieved a list of amenities.
+    - **Response Example**:
+      ```json
+      [
+        {
+          "id": "string",
+          "name": "string",
+          "description": "string"
+        }
+      ]
+      ```
 
-**Example Response:**
-```json
-{
-    "id": "12345",
-    "name": "Pool",
-    "description": "A large outdoor pool."
-}
-```
+### **Endpoint:** `/amenities/<amenity_id>`
+- **GET**: Retrieve amenity details by ID.
+  - **Responses**:
+    - `200`: Successfully retrieved amenity details.
+    - `404`: Amenity not found.
 
-### PUT /api/v1/amenities/{amenity_id}
+- **PUT**: Update an amenity's information.
+  - **Request Body**:
+    ```json
+    {
+      "name": "string",
+      "description": "string"  # Optional
+    }
+    ```
+  - **Responses**:
+    - `200`: Amenity successfully updated.
+    - `404`: Amenity not found.
+    - `400`: Invalid input data.
 
-Update an existing amenity's details.
+## Places API
+The Places API manages operations related to place entities, including registering new places and retrieving or updating existing places.
 
-**Request Body:**
-```json
-{
-    "name": "Updated Pool",
-    "description": "An updated description for the pool."
-}
-```
+### **Endpoint:** `/places/`
+- **POST**: Register a new place.
+  - **Request Body**:
+    ```json
+    {
+      "title": "string",
+      "description": "string",
+      "price": "float",
+      "latitude": "float",
+      "longitude": "float",
+      "owner_id": "string"
+    }
+    ```
+  - **Responses**:
+    - `201`: Place successfully created.
+    - `400`: Owner not found or invalid input data.
 
-**Responses:**
-- **200 OK**: Returns a success message if the amenity was updated successfully.
-- **404 Not Found**: Returns an error message if the amenity with the given ID does not exist.
-- **400 Bad Request**: Returns an error message if the input data is invalid.
+- **GET**: Retrieve all places.
+  - **Responses**:
+    - `200`: Successfully retrieved a list of places.
+    - **Response Example**:
+      ```json
+      [
+        {
+          "id": "string",
+          "title": "string",
+          "latitude": "float",
+          "longitude": "float"
+        }
+      ]
+      ```
 
-**Example Response:**
-```json
-{
-    "message": "Amenity updated successfully"
-}
-```
+### **Endpoint:** `/places/<place_id>`
+- **GET**: Retrieve place details by ID.
+  - **Responses**:
+    - `200`: Successfully retrieved place details, including owner, amenities, and reviews.
+    - `404`: Place not found.
 
----
+- **PUT**: Update a place's information.
+  - **Request Body**:
+    ```json
+    {
+      "title": "string",
+      "description": "string",
+      "price": "float",
+      "latitude": "float",
+      "longitude": "float"
+    }
+    ```
+  - **Responses**:
+    - `200`: Place successfully updated.
+    - `404`: Place not found.
+    - `400`: Invalid input data.
 
-Feel free to adjust the content as needed based on your specific implementation and any additional details you might have.
+## Reviews API
+The Reviews API manages operations related to review entities, including creating, retrieving, updating, or deleting reviews associated with places.
+
+### **Endpoint:** `/reviews/`
+- **POST**: Create a new review.
+  - **Request Body**:
+    ```json
+    {
+      "text": "string",
+      "rating": "integer",
+      "place_id": "string",
+      "user_id": "string"
+    }
+    ```
+  - **Responses**:
+    - `201`: Review successfully created.
+    - `400`: Invalid input data.
+
+- **GET**: Retrieve all reviews.
+  - **Responses**:
+    - `200`: Successfully retrieved a list of reviews.
+    - **Response Example**:
+      ```json
+      [
+        {
+          "id": "string",
+          "text": "string",
+          "rating": "integer",
+          "place_id": "string",
+          "user_id": "string"
+        }
+      ]
+      ```
+
+### **Endpoint:** `/reviews/<review_id>`
+- **GET**: Retrieve review details by ID.
+  - **Responses**:
+    - `200`: Successfully retrieved review details.
+    - `404`: Review not found.
+
+- **PUT**: Update a review's information.
+  - **Request Body**:
+    ```json
+    {
+      "text": "string",
+      "rating": "integer"
+    }
+    ```
+  - **Responses**:
+    - `200`: Review successfully updated.
+    - `404`: Review not found.
+    - `400`: Invalid input data.
+
+- **DELETE**: Delete a review.
+  - **Responses**:
+    - `204`: Review successfully deleted.
+    - `404`: Review not found.
+
