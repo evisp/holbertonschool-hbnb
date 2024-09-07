@@ -2,6 +2,12 @@
 
 This folder contains the core data models for the HBnB Evolution project. Each model represents a distinct entity within the application, encapsulating the data and behaviors relevant to that entity.
 
+
+The figure below provides a visual representation of the relationships and structures of the models within the HBnB Evolution project. This diagram illustrates how the different entities such as `User`, `Place`, `Amenity`, and `Review` are connected and interact with each other. In addition, the class diagram shows the entities such as `City` and `Country` along with their interaction, which, at this phase, are not yet implemented. 
+
+![Class Diagram](../../figs/classdiagram.jpeg)
+
+
 ## BaseModel
 
 **Objective:**  
@@ -56,7 +62,3 @@ The [`Review`](https://github.com/evisp/holbertonschool-hbnb/blob/main/app/model
 - **Attributes:** `text`, `rating`, `place_id`, `user_id`.
 - **Rating Validation:** Ensures the rating is between 1 and 5.
 - **Dictionary Representation:** Includes the review text, rating, and associated place and user IDs.
-
----
-
-This README gives an overview of each model's purpose and functionality, making it clear how they fit into the overall architecture of the HBnB Evolution project.
