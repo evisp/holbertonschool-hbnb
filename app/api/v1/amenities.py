@@ -13,27 +13,61 @@ facade = HBnBFacade()
 
 @api.route('/')
 class AmenityList(Resource):
+    """
+    Resource for handling amenity operations such as creating and retrieving amenities.
+    """
     @api.expect(amenity_model)
     @api.response(201, 'Amenity successfully created')
     @api.response(400, 'Invalid input data')
     def post(self):
-        """Register a new amenity"""
+        """
+        Register a new amenity.
+
+        This endpoint allows for the creation of a new amenity. It validates the input data 
+        and creates a new amenity.
+
+        Returns:
+            response (dict): Contains the ID of the newly created amenity and a success message.
+            status_code (int): 201 if creation is successful, otherwise 400 if input data is invalid.
+        """
         amenity_data = api.payload
         new_amenity = facade.create_amenity(amenity_data)
         return {'id': str(new_amenity.id), 'message': 'Amenity created successfully'}, 201
 
     @api.response(200, 'List of amenities retrieved successfully')
     def get(self):
-        """Retrieve a list of all amenities"""
+        """
+        Retrieve a list of all amenities.
+
+        This endpoint retrieves a list of all amenities.
+
+        Returns:
+            response (list): A list of amenity objects with their details.
+            status_code (int): 200 if retrieval is successful.
+        """
         amenities = facade.get_all_amenities()
         return [amenity.to_dict() for amenity in amenities], 200
 
 @api.route('/<amenity_id>')
 class AmenityResource(Resource):
+    """
+    Resource for handling individual amenity operations such as retrieving and updating an amenity.
+    """
     @api.response(200, 'Amenity details retrieved successfully')
     @api.response(404, 'Amenity not found')
     def get(self, amenity_id):
-        """Get amenity details by ID"""
+        """
+        Get amenity details by ID.
+
+        This endpoint retrieves details of a specific amenity based on its ID.
+
+        Args:
+            amenity_id (str): The ID of the amenity to retrieve.
+
+        Returns:
+            response (dict): The amenity's details.
+            status_code (int): 200 if retrieval is successful, otherwise 404 if the amenity is not found.
+        """
         amenity = facade.get_amenity(amenity_id)
         if not amenity:
             return {'error': 'Amenity not found'}, 404
@@ -44,7 +78,18 @@ class AmenityResource(Resource):
     @api.response(404, 'Amenity not found')
     @api.response(400, 'Invalid input data')
     def put(self, amenity_id):
-        """Update an amenity's information"""
+        """
+        Update an amenity's information.
+
+        This endpoint updates the information of a specific amenity based on its ID.
+
+        Args:
+            amenity_id (str): The ID of the amenity to update.
+
+        Returns:
+            response (dict): A success message indicating that the amenity was updated.
+            status_code (int): 200 if update is successful, otherwise 404 if the amenity is not found or 400 if input data is invalid.
+        """
         amenity_data = api.payload
         amenity = facade.get_amenity(amenity_id)
         if not amenity:

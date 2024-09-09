@@ -36,7 +36,21 @@
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="InMemoryRepository">class <strong>InMemoryRepository</strong></a>(<a href="app.persistence.repository.html#Repository">Repository</a>)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>In-memory&nbsp;implementation&nbsp;of&nbsp;the&nbsp;<a href="#Repository">Repository</a>&nbsp;class.&nbsp;Stores&nbsp;objects&nbsp;in&nbsp;a&nbsp;<br>
+dictionary&nbsp;for&nbsp;quick&nbsp;access.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;_storage&nbsp;(dict):&nbsp;A&nbsp;dictionary&nbsp;to&nbsp;store&nbsp;objects&nbsp;with&nbsp;their&nbsp;IDs&nbsp;as&nbsp;keys.<br>
+&nbsp;<br>
+Methods:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-add">add</a>(obj):&nbsp;Add&nbsp;an&nbsp;object&nbsp;to&nbsp;the&nbsp;repository.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-get">get</a>(obj_id):&nbsp;Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-get_all">get_all</a>():&nbsp;Retrieve&nbsp;all&nbsp;objects&nbsp;from&nbsp;the&nbsp;repository.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-update">update</a>(obj_id,&nbsp;data):&nbsp;Update&nbsp;an&nbsp;object's&nbsp;attributes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-delete">delete</a>(obj_id):&nbsp;Delete&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#InMemoryRepository-get_by_attribute">get_by_attribute</a>(attr_name,&nbsp;attr_value):&nbsp;Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;a&nbsp;specific&nbsp;attribute.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.persistence.repository.html#InMemoryRepository">InMemoryRepository</a></dd>
 <dd><a href="app.persistence.repository.html#Repository">Repository</a></dd>
@@ -45,19 +59,51 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="InMemoryRepository-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="InMemoryRepository-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initializes&nbsp;the&nbsp;object&nbsp;with&nbsp;dictionary&nbsp;to&nbsp;store&nbsp;objects&nbsp;with&nbsp;their&nbsp;IDs&nbsp;as&nbsp;keys.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-add"><strong>add</strong></a>(self, obj)</dt></dl>
+<dl><dt><a name="InMemoryRepository-add"><strong>add</strong></a>(self, obj)</dt><dd><tt>Add&nbsp;an&nbsp;object&nbsp;to&nbsp;the&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;(BaseModel):&nbsp;The&nbsp;object&nbsp;to&nbsp;add.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-delete"><strong>delete</strong></a>(self, obj_id)</dt></dl>
+<dl><dt><a name="InMemoryRepository-delete"><strong>delete</strong></a>(self, obj_id)</dt><dd><tt>Delete&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;delete.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;KeyError:&nbsp;If&nbsp;the&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-get"><strong>get</strong></a>(self, obj_id)</dt></dl>
+<dl><dt><a name="InMemoryRepository-get"><strong>get</strong></a>(self, obj_id)</dt><dd><tt>Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BaseModel:&nbsp;The&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-get_all"><strong>get_all</strong></a>(self)</dt></dl>
+<dl><dt><a name="InMemoryRepository-get_all"><strong>get_all</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;objects&nbsp;from&nbsp;the&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;all&nbsp;objects&nbsp;in&nbsp;the&nbsp;repository.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-get_by_attribute"><strong>get_by_attribute</strong></a>(self, attr_name, attr_value)</dt></dl>
+<dl><dt><a name="InMemoryRepository-get_by_attribute"><strong>get_by_attribute</strong></a>(self, attr_name, attr_value)</dt><dd><tt>Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;a&nbsp;specific&nbsp;attribute.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;attr_name&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;search&nbsp;by.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;attr_value:&nbsp;The&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;match.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BaseModel:&nbsp;The&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;attribute&nbsp;value,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="InMemoryRepository-update"><strong>update</strong></a>(self, obj_id, data)</dt></dl>
+<dl><dt><a name="InMemoryRepository-update"><strong>update</strong></a>(self, obj_id, data)</dt><dd><tt>Update&nbsp;an&nbsp;object's&nbsp;attributes.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;update.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(dict):&nbsp;A&nbsp;dictionary&nbsp;of&nbsp;attributes&nbsp;to&nbsp;update.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;KeyError:&nbsp;If&nbsp;the&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -77,7 +123,18 @@ Data descriptors inherited from <a href="app.persistence.repository.html#Reposit
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="Repository">class <strong>Repository</strong></a>(<a href="abc.html#ABC">abc.ABC</a>)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Abstract&nbsp;base&nbsp;class&nbsp;for&nbsp;repository&nbsp;operations.&nbsp;Defines&nbsp;the&nbsp;contract&nbsp;for&nbsp;<br>
+any&nbsp;repository&nbsp;implementation.<br>
+&nbsp;<br>
+Methods:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-add">add</a>(obj):&nbsp;Add&nbsp;an&nbsp;object&nbsp;to&nbsp;the&nbsp;repository.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-get">get</a>(obj_id):&nbsp;Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-get_all">get_all</a>():&nbsp;Retrieve&nbsp;all&nbsp;objects&nbsp;from&nbsp;the&nbsp;repository.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-update">update</a>(obj_id,&nbsp;data):&nbsp;Update&nbsp;an&nbsp;object's&nbsp;attributes.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-delete">delete</a>(obj_id):&nbsp;Delete&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<a href="#Repository-get_by_attribute">get_by_attribute</a>(attr_name,&nbsp;attr_value):&nbsp;Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;a&nbsp;specific&nbsp;attribute.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.persistence.repository.html#Repository">Repository</a></dd>
 <dd><a href="abc.html#ABC">abc.ABC</a></dd>
@@ -85,17 +142,49 @@ Data descriptors inherited from <a href="app.persistence.repository.html#Reposit
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Repository-add"><strong>add</strong></a>(self, obj)</dt></dl>
+<dl><dt><a name="Repository-add"><strong>add</strong></a>(self, obj)</dt><dd><tt>Add&nbsp;an&nbsp;object&nbsp;to&nbsp;the&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj&nbsp;(BaseModel):&nbsp;The&nbsp;object&nbsp;to&nbsp;add.</tt></dd></dl>
 
-<dl><dt><a name="Repository-delete"><strong>delete</strong></a>(self, obj_id)</dt></dl>
+<dl><dt><a name="Repository-delete"><strong>delete</strong></a>(self, obj_id)</dt><dd><tt>Delete&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;delete.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;KeyError:&nbsp;If&nbsp;the&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="Repository-get"><strong>get</strong></a>(self, obj_id)</dt></dl>
+<dl><dt><a name="Repository-get"><strong>get</strong></a>(self, obj_id)</dt><dd><tt>Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BaseModel:&nbsp;The&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="Repository-get_all"><strong>get_all</strong></a>(self)</dt></dl>
+<dl><dt><a name="Repository-get_all"><strong>get_all</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;objects&nbsp;from&nbsp;the&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;all&nbsp;objects&nbsp;in&nbsp;the&nbsp;repository.</tt></dd></dl>
 
-<dl><dt><a name="Repository-get_by_attribute"><strong>get_by_attribute</strong></a>(self, attr_name, attr_value)</dt></dl>
+<dl><dt><a name="Repository-get_by_attribute"><strong>get_by_attribute</strong></a>(self, attr_name, attr_value)</dt><dd><tt>Retrieve&nbsp;an&nbsp;object&nbsp;by&nbsp;a&nbsp;specific&nbsp;attribute.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;attr_name&nbsp;(str):&nbsp;The&nbsp;name&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;search&nbsp;by.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;attr_value:&nbsp;The&nbsp;value&nbsp;of&nbsp;the&nbsp;attribute&nbsp;to&nbsp;match.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;BaseModel:&nbsp;The&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;attribute&nbsp;value,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="Repository-update"><strong>update</strong></a>(self, obj_id, data)</dt></dl>
+<dl><dt><a name="Repository-update"><strong>update</strong></a>(self, obj_id, data)</dt><dd><tt>Update&nbsp;an&nbsp;object's&nbsp;attributes.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;obj_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;object&nbsp;to&nbsp;update.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;(dict):&nbsp;A&nbsp;dictionary&nbsp;of&nbsp;attributes&nbsp;to&nbsp;update.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;KeyError:&nbsp;If&nbsp;the&nbsp;object&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>

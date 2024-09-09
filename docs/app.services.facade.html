@@ -31,47 +31,175 @@
 <td colspan=3 valign=bottom>&nbsp;<br>
 <font color="#000000" face="helvetica, arial"><a name="HBnBFacade">class <strong>HBnBFacade</strong></a>(<a href="builtins.html#object">builtins.object</a>)</font></td></tr>
     
-<tr><td bgcolor="#ffc8d8"><tt>&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
+<tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
+<td colspan=2><tt>Facade&nbsp;for&nbsp;managing&nbsp;the&nbsp;interactions&nbsp;between&nbsp;various&nbsp;models&nbsp;and&nbsp;their&nbsp;repositories.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;user_repo&nbsp;(InMemoryRepository):&nbsp;Repository&nbsp;for&nbsp;User&nbsp;entities.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_repo&nbsp;(InMemoryRepository):&nbsp;Repository&nbsp;for&nbsp;Place&nbsp;entities.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review_repo&nbsp;(InMemoryRepository):&nbsp;Repository&nbsp;for&nbsp;Review&nbsp;entities.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity_repo&nbsp;(InMemoryRepository):&nbsp;Repository&nbsp;for&nbsp;Amenity&nbsp;entities.<br>&nbsp;</tt></td></tr>
+<tr><td>&nbsp;</td>
 <td width="100%">Methods defined here:<br>
-<dl><dt><a name="HBnBFacade-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="HBnBFacade-__init__"><strong>__init__</strong></a>(self)</dt><dd><tt>Initialize&nbsp;<a href="#HBnBFacade">HBnBFacade</a>&nbsp;with&nbsp;shared&nbsp;repositories&nbsp;<br>
+for&nbsp;users,&nbsp;places,&nbsp;reviews,&nbsp;and&nbsp;amenities.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-create_amenity"><strong>create_amenity</strong></a>(self, amenity_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-create_amenity"><strong>create_amenity</strong></a>(self, amenity_data)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;amenity&nbsp;and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;amenity&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity_data&nbsp;(dict):&nbsp;Amenity&nbsp;attributes&nbsp;including&nbsp;'name'&nbsp;and&nbsp;'description'.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Amenity:&nbsp;The&nbsp;created&nbsp;Amenity&nbsp;<a href="builtins.html#object">object</a>.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-create_place"><strong>create_place</strong></a>(self, place_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-create_place"><strong>create_place</strong></a>(self, place_data)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;place&nbsp;and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;place&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_data&nbsp;(dict):&nbsp;Place&nbsp;attributes&nbsp;including&nbsp;'title',&nbsp;'description',&nbsp;'price',&nbsp;'latitude',&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'longitude',&nbsp;and&nbsp;'owner_id'.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Place:&nbsp;The&nbsp;created&nbsp;Place&nbsp;<a href="builtins.html#object">object</a>.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;owner&nbsp;does&nbsp;not&nbsp;exist.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-create_review"><strong>create_review</strong></a>(self, review_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-create_review"><strong>create_review</strong></a>(self, review_data)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;review&nbsp;and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;review&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review_data&nbsp;(dict):&nbsp;Review&nbsp;attributes&nbsp;including&nbsp;'text',&nbsp;'rating',&nbsp;'place_id',&nbsp;and&nbsp;'user_id'.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Review:&nbsp;The&nbsp;created&nbsp;Review&nbsp;<a href="builtins.html#object">object</a>.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;place&nbsp;or&nbsp;user&nbsp;does&nbsp;not&nbsp;exist.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-create_user"><strong>create_user</strong></a>(self, user_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-create_user"><strong>create_user</strong></a>(self, user_data)</dt><dd><tt>Create&nbsp;a&nbsp;new&nbsp;user&nbsp;and&nbsp;add&nbsp;it&nbsp;to&nbsp;the&nbsp;user&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;user_data&nbsp;(dict):&nbsp;User&nbsp;attributes&nbsp;including&nbsp;'first_name',&nbsp;'last_name',&nbsp;'email',&nbsp;and&nbsp;'password'.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;User:&nbsp;The&nbsp;created&nbsp;User&nbsp;<a href="builtins.html#object">object</a>.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-delete_review"><strong>delete_review</strong></a>(self, review_id)</dt></dl>
+<dl><dt><a name="HBnBFacade-delete_review"><strong>delete_review</strong></a>(self, review_id)</dt><dd><tt>Delete&nbsp;a&nbsp;review&nbsp;from&nbsp;the&nbsp;review&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;review&nbsp;to&nbsp;delete.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;review&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_all_amenities"><strong>get_all_amenities</strong></a>(self)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_all_amenities"><strong>get_all_amenities</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;amenities&nbsp;from&nbsp;the&nbsp;amenity&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;Amenity&nbsp;objects.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_all_places"><strong>get_all_places</strong></a>(self)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_all_places"><strong>get_all_places</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;places&nbsp;from&nbsp;the&nbsp;place&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;dictionaries&nbsp;representing&nbsp;all&nbsp;places.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_all_reviews"><strong>get_all_reviews</strong></a>(self)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_all_reviews"><strong>get_all_reviews</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;reviews&nbsp;from&nbsp;the&nbsp;review&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;Review&nbsp;objects.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_all_users"><strong>get_all_users</strong></a>(self)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_all_users"><strong>get_all_users</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;all&nbsp;users&nbsp;from&nbsp;the&nbsp;user&nbsp;repository.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;User&nbsp;objects.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_amenity"><strong>get_amenity</strong></a>(self, amenity_id)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_amenity"><strong>get_amenity</strong></a>(self, amenity_id)</dt><dd><tt>Retrieve&nbsp;an&nbsp;amenity&nbsp;by&nbsp;ID&nbsp;from&nbsp;the&nbsp;amenity&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;amenity&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Amenity:&nbsp;The&nbsp;Amenity&nbsp;<a href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_place"><strong>get_place</strong></a>(self, place_id)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_place"><strong>get_place</strong></a>(self, place_id)</dt><dd><tt>Retrieve&nbsp;a&nbsp;place&nbsp;by&nbsp;ID&nbsp;from&nbsp;the&nbsp;place&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;place&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;dictionary&nbsp;containing&nbsp;place&nbsp;details,&nbsp;including&nbsp;owner,&nbsp;amenities,&nbsp;and&nbsp;reviews.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_review"><strong>get_review</strong></a>(self, review_id)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_review"><strong>get_review</strong></a>(self, review_id)</dt><dd><tt>Retrieve&nbsp;a&nbsp;review&nbsp;by&nbsp;ID&nbsp;from&nbsp;the&nbsp;review&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;review&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Review:&nbsp;The&nbsp;Review&nbsp;<a href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;otherwise&nbsp;None.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;review&nbsp;does&nbsp;not&nbsp;exist.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_reviews_for_place"><strong>get_reviews_for_place</strong></a>(self, place_id)</dt><dd><tt>Retrieve&nbsp;all&nbsp;reviews&nbsp;for&nbsp;a&nbsp;specific&nbsp;place</tt></dd></dl>
+<dl><dt><a name="HBnBFacade-get_reviews_for_place"><strong>get_reviews_for_place</strong></a>(self, place_id)</dt><dd><tt>Retrieve&nbsp;all&nbsp;reviews&nbsp;for&nbsp;a&nbsp;specific&nbsp;place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;place&nbsp;whose&nbsp;reviews&nbsp;are&nbsp;to&nbsp;be&nbsp;retrieved.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list:&nbsp;A&nbsp;list&nbsp;of&nbsp;Review&nbsp;objects&nbsp;associated&nbsp;with&nbsp;the&nbsp;specified&nbsp;place.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;place&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_user"><strong>get_user</strong></a>(self, user_id)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_user"><strong>get_user</strong></a>(self, user_id)</dt><dd><tt>Retrieve&nbsp;a&nbsp;user&nbsp;by&nbsp;ID&nbsp;from&nbsp;the&nbsp;user&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;user_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;User:&nbsp;The&nbsp;User&nbsp;<a href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-get_user_by_email"><strong>get_user_by_email</strong></a>(self, email)</dt></dl>
+<dl><dt><a name="HBnBFacade-get_user_by_email"><strong>get_user_by_email</strong></a>(self, email)</dt><dd><tt>Retrieve&nbsp;a&nbsp;user&nbsp;by&nbsp;email&nbsp;from&nbsp;the&nbsp;user&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;(str):&nbsp;The&nbsp;email&nbsp;of&nbsp;the&nbsp;user&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;User:&nbsp;The&nbsp;User&nbsp;<a href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;otherwise&nbsp;None.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-update_amenity"><strong>update_amenity</strong></a>(self, amenity_id, amenity_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-update_amenity"><strong>update_amenity</strong></a>(self, amenity_id, amenity_data)</dt><dd><tt>Update&nbsp;an&nbsp;existing&nbsp;amenity&nbsp;in&nbsp;the&nbsp;amenity&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;amenity&nbsp;to&nbsp;update.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity_data&nbsp;(dict):&nbsp;Updated&nbsp;attributes&nbsp;for&nbsp;the&nbsp;amenity.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Amenity:&nbsp;The&nbsp;updated&nbsp;Amenity&nbsp;<a href="builtins.html#object">object</a>,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-update_place"><strong>update_place</strong></a>(self, place_id, place_data)</dt></dl>
+<dl><dt><a name="HBnBFacade-update_place"><strong>update_place</strong></a>(self, place_id, place_data)</dt><dd><tt>Update&nbsp;an&nbsp;existing&nbsp;place&nbsp;in&nbsp;the&nbsp;place&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;place&nbsp;to&nbsp;update.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_data&nbsp;(dict):&nbsp;Updated&nbsp;attributes&nbsp;for&nbsp;the&nbsp;place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Place:&nbsp;The&nbsp;updated&nbsp;Place&nbsp;<a href="builtins.html#object">object</a>,&nbsp;or&nbsp;None&nbsp;if&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-update_review"><strong>update_review</strong></a>(self, review_id, **kwargs)</dt></dl>
+<dl><dt><a name="HBnBFacade-update_review"><strong>update_review</strong></a>(self, review_id, **kwargs)</dt><dd><tt>Update&nbsp;an&nbsp;existing&nbsp;review&nbsp;in&nbsp;the&nbsp;review&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;review&nbsp;to&nbsp;update.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;**kwargs:&nbsp;Keyword&nbsp;arguments&nbsp;for&nbsp;updating&nbsp;review&nbsp;attributes.&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Possible&nbsp;keys&nbsp;are&nbsp;'rating'&nbsp;and&nbsp;'text'.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Review:&nbsp;The&nbsp;updated&nbsp;Review&nbsp;<a href="builtins.html#object">object</a>.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;review&nbsp;with&nbsp;the&nbsp;specified&nbsp;ID&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="HBnBFacade-update_user"><strong>update_user</strong></a>(self, user)</dt></dl>
+<dl><dt><a name="HBnBFacade-update_user"><strong>update_user</strong></a>(self, user)</dt><dd><tt>Update&nbsp;an&nbsp;existing&nbsp;user&nbsp;in&nbsp;the&nbsp;user&nbsp;repository.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;user&nbsp;(User):&nbsp;The&nbsp;User&nbsp;<a href="builtins.html#object">object</a>&nbsp;with&nbsp;updated&nbsp;attributes.</tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>

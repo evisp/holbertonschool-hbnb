@@ -15,12 +15,24 @@ facade = HBnBFacade()
 
 @api.route('/')
 class UserList(Resource):
+    """
+    Resource for handling user operations such as creating and retrieving users.
+    """
     @api.expect(user_model)
     @api.response(201, 'User successfully created')
     @api.response(400, 'Email already registered')
     @api.response(400, 'Invalid input data')
     def post(self):
-        """Register a new user"""
+        """
+        Register a new user.
+
+        This endpoint allows for the creation of a new user. It checks if the provided email is already registered, 
+        validates the input data, and then creates a new user.
+
+        Returns:
+            response (dict): Contains the ID of the newly created user and a success message.
+            status_code (int): 201 if creation is successful, otherwise 400 if email is already registered or if input data is invalid.
+        """
         user_data = api.payload
 
         # Simulate email uniqueness check
@@ -37,17 +49,39 @@ class UserList(Resource):
 
     @api.response(200, 'Users retrieved successfully')
     def get(self):
-        """Retrieve all users"""
+        """
+        Retrieve all users.
+
+        This endpoint retrieves a list of all users.
+
+        Returns:
+            response (list): A list of user objects with their IDs, first names, last names, and emails.
+            status_code (int): 200 if retrieval is successful.
+        """
         users = facade.get_all_users()
         return [{'id': str(user.id), 'first_name': user.first_name, 'last_name': user.last_name, 'email': user.email} for user in users], 200
 
 
 @api.route('/<user_id>')
 class UserResource(Resource):
+    """
+    Resource for handling individual user operations such as retrieving, updating, and deleting a user.
+    """
     @api.response(200, 'User details retrieved successfully')
     @api.response(404, 'User not found')
     def get(self, user_id):
-        """Get user details by ID"""
+        """
+        Get user details by ID.
+
+        This endpoint retrieves details of a specific user based on their ID.
+
+        Args:
+            user_id (str): The ID of the user to retrieve.
+
+        Returns:
+            response (dict): The user's details.
+            status_code (int): 200 if retrieval is successful, otherwise 404 if the user is not found.
+        """
         user = facade.get_user(user_id)
         if not user:
             return {'error': 'User not found'}, 404
@@ -58,7 +92,18 @@ class UserResource(Resource):
     @api.response(404, 'User not found')
     @api.response(400, 'Invalid input data')
     def put(self, user_id):
-        """Update user information"""
+        """
+        Update user information.
+
+        This endpoint updates the information of a specific user based on their ID.
+
+        Args:
+            user_id (str): The ID of the user to update.
+
+        Returns:
+            response (dict): A success message indicating that the user was updated.
+            status_code (int): 200 if update is successful, otherwise 404 if the user is not found or 400 if input data is invalid.
+        """
         user_data = api.payload
         user = facade.get_user(user_id)
         if not user:
@@ -74,5 +119,5 @@ class UserResource(Resource):
             email=user_data.get('email'),
             password=user_data.get('password')
         )
-        facade.update_user(user)  # This will now work correctly with the updated method
+        facade.update_user(user)  
         return {'message': 'User updated successfully'}, 200

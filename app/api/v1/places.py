@@ -17,11 +17,23 @@ facade = HBnBFacade()
 
 @api.route('/')
 class PlaceList(Resource):
+    """
+    Resource for handling place operations such as creating and retrieving places.
+    """
     @api.expect(place_model)
     @api.response(201, 'Place successfully created')
     @api.response(400, 'Invalid input data')
     def post(self):
-        """Register a new place"""
+        """
+        Register a new place.
+
+        This endpoint allows for the creation of a new place. It validates the input data,
+        checks if the owner exists, and creates the place.
+
+        Returns:
+            response (dict): Contains the ID of the newly created place and a success message.
+            status_code (int): 201 if creation is successful, otherwise 400 if input data is invalid or owner not found.
+        """
         place_data = api.payload
         
         owner_id = place_data.get('owner_id')
@@ -38,7 +50,15 @@ class PlaceList(Resource):
 
     @api.response(200, 'List of places retrieved successfully')
     def get(self):
-        """Retrieve a list of all places"""
+        """
+        Retrieve a list of all places.
+
+        This endpoint retrieves a list of all places with basic details.
+
+        Returns:
+            response (list): A list of place objects with their basic details.
+            status_code (int): 200 if retrieval is successful.
+        """
         places = facade.get_all_places()
         return [
             {
@@ -52,10 +72,25 @@ class PlaceList(Resource):
 
 @api.route('/<place_id>')
 class PlaceResource(Resource):
+    """
+    Resource for handling individual place operations such as retrieving and updating a place.
+    """
     @api.response(200, 'Place details retrieved successfully')
     @api.response(404, 'Place not found')
     def get(self, place_id):
-        """Get place details by ID"""
+        """
+        Get place details by ID.
+
+        This endpoint retrieves the details of a specific place based on its ID. It includes
+        information about the owner, amenities, and reviews.
+
+        Args:
+            place_id (str): The ID of the place to retrieve.
+
+        Returns:
+            response (dict): The place's details, including owner, amenities, and reviews.
+            status_code (int): 200 if retrieval is successful, otherwise 404 if the place is not found.
+        """
         place = facade.get_place(place_id)
         if not place:
             return {'error': 'Place not found'}, 404
@@ -82,7 +117,18 @@ class PlaceResource(Resource):
     @api.response(404, 'Place not found')
     @api.response(400, 'Invalid input data')
     def put(self, place_id):
-        """Update a place's information"""
+        """
+        Update a place's information.
+
+        This endpoint updates the information of a specific place based on its ID.
+
+        Args:
+            place_id (str): The ID of the place to update.
+
+        Returns:
+            response (dict): A success message indicating that the place was updated.
+            status_code (int): 200 if update is successful, otherwise 404 if the place is not found or 400 if input data is invalid.
+        """
         place_data = api.payload
         place = facade.get_place(place_id)
         if not place:

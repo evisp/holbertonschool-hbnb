@@ -43,7 +43,7 @@
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#PlaceList">PlaceList</a>(api=None,&nbsp;*args,&nbsp;**kwargs)<br>
 &nbsp;<br>
-<br>&nbsp;</tt></td></tr>
+<a href="flask_restx.resource.html#Resource">Resource</a>&nbsp;for&nbsp;handling&nbsp;place&nbsp;operations&nbsp;such&nbsp;as&nbsp;creating&nbsp;and&nbsp;retrieving&nbsp;places.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.api.v1.places.html#PlaceList">PlaceList</a></dd>
@@ -54,9 +54,22 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="PlaceList-get"><strong>get</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;places</tt></dd></dl>
+<dl><dt><a name="PlaceList-get"><strong>get</strong></a>(self)</dt><dd><tt>Retrieve&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;places.<br>
+&nbsp;<br>
+This&nbsp;endpoint&nbsp;retrieves&nbsp;a&nbsp;list&nbsp;of&nbsp;all&nbsp;places&nbsp;with&nbsp;basic&nbsp;details.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;response&nbsp;(list):&nbsp;A&nbsp;list&nbsp;of&nbsp;place&nbsp;objects&nbsp;with&nbsp;their&nbsp;basic&nbsp;details.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status_code&nbsp;(int):&nbsp;200&nbsp;if&nbsp;retrieval&nbsp;is&nbsp;successful.</tt></dd></dl>
 
-<dl><dt><a name="PlaceList-post"><strong>post</strong></a>(self)</dt><dd><tt>Register&nbsp;a&nbsp;new&nbsp;place</tt></dd></dl>
+<dl><dt><a name="PlaceList-post"><strong>post</strong></a>(self)</dt><dd><tt>Register&nbsp;a&nbsp;new&nbsp;place.<br>
+&nbsp;<br>
+This&nbsp;endpoint&nbsp;allows&nbsp;for&nbsp;the&nbsp;creation&nbsp;of&nbsp;a&nbsp;new&nbsp;place.&nbsp;It&nbsp;validates&nbsp;the&nbsp;input&nbsp;data,<br>
+checks&nbsp;if&nbsp;the&nbsp;owner&nbsp;exists,&nbsp;and&nbsp;creates&nbsp;the&nbsp;place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;response&nbsp;(dict):&nbsp;Contains&nbsp;the&nbsp;ID&nbsp;of&nbsp;the&nbsp;newly&nbsp;created&nbsp;place&nbsp;and&nbsp;a&nbsp;success&nbsp;message.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status_code&nbsp;(int):&nbsp;201&nbsp;if&nbsp;creation&nbsp;is&nbsp;successful,&nbsp;otherwise&nbsp;400&nbsp;if&nbsp;input&nbsp;data&nbsp;is&nbsp;invalid&nbsp;or&nbsp;owner&nbsp;not&nbsp;found.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -129,7 +142,7 @@ Data and other attributes inherited from <a href="flask.views.html#View">flask.v
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#PlaceResource">PlaceResource</a>(api=None,&nbsp;*args,&nbsp;**kwargs)<br>
 &nbsp;<br>
-<br>&nbsp;</tt></td></tr>
+<a href="flask_restx.resource.html#Resource">Resource</a>&nbsp;for&nbsp;handling&nbsp;individual&nbsp;place&nbsp;operations&nbsp;such&nbsp;as&nbsp;retrieving&nbsp;and&nbsp;updating&nbsp;a&nbsp;place.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.api.v1.places.html#PlaceResource">PlaceResource</a></dd>
@@ -140,9 +153,28 @@ Data and other attributes inherited from <a href="flask.views.html#View">flask.v
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="PlaceResource-get"><strong>get</strong></a>(self, place_id)</dt><dd><tt>Get&nbsp;place&nbsp;details&nbsp;by&nbsp;ID</tt></dd></dl>
+<dl><dt><a name="PlaceResource-get"><strong>get</strong></a>(self, place_id)</dt><dd><tt>Get&nbsp;place&nbsp;details&nbsp;by&nbsp;ID.<br>
+&nbsp;<br>
+This&nbsp;endpoint&nbsp;retrieves&nbsp;the&nbsp;details&nbsp;of&nbsp;a&nbsp;specific&nbsp;place&nbsp;based&nbsp;on&nbsp;its&nbsp;ID.&nbsp;It&nbsp;includes<br>
+information&nbsp;about&nbsp;the&nbsp;owner,&nbsp;amenities,&nbsp;and&nbsp;reviews.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;place&nbsp;to&nbsp;retrieve.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;response&nbsp;(dict):&nbsp;The&nbsp;place's&nbsp;details,&nbsp;including&nbsp;owner,&nbsp;amenities,&nbsp;and&nbsp;reviews.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status_code&nbsp;(int):&nbsp;200&nbsp;if&nbsp;retrieval&nbsp;is&nbsp;successful,&nbsp;otherwise&nbsp;404&nbsp;if&nbsp;the&nbsp;place&nbsp;is&nbsp;not&nbsp;found.</tt></dd></dl>
 
-<dl><dt><a name="PlaceResource-put"><strong>put</strong></a>(self, place_id)</dt><dd><tt>Update&nbsp;a&nbsp;place's&nbsp;information</tt></dd></dl>
+<dl><dt><a name="PlaceResource-put"><strong>put</strong></a>(self, place_id)</dt><dd><tt>Update&nbsp;a&nbsp;place's&nbsp;information.<br>
+&nbsp;<br>
+This&nbsp;endpoint&nbsp;updates&nbsp;the&nbsp;information&nbsp;of&nbsp;a&nbsp;specific&nbsp;place&nbsp;based&nbsp;on&nbsp;its&nbsp;ID.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;place_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;place&nbsp;to&nbsp;update.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;response&nbsp;(dict):&nbsp;A&nbsp;success&nbsp;message&nbsp;indicating&nbsp;that&nbsp;the&nbsp;place&nbsp;was&nbsp;updated.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;status_code&nbsp;(int):&nbsp;200&nbsp;if&nbsp;update&nbsp;is&nbsp;successful,&nbsp;otherwise&nbsp;404&nbsp;if&nbsp;the&nbsp;place&nbsp;is&nbsp;not&nbsp;found&nbsp;or&nbsp;400&nbsp;if&nbsp;input&nbsp;data&nbsp;is&nbsp;invalid.</tt></dd></dl>
 
 <hr>
 Data and other attributes defined here:<br>
@@ -215,5 +247,5 @@ Data and other attributes inherited from <a href="flask.views.html#View">flask.v
 <tr><td bgcolor="#55aa55"><tt>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</tt></td><td>&nbsp;</td>
 <td width="100%"><strong>api</strong> = &lt;flask_restx.namespace.Namespace object&gt;<br>
 <strong>facade</strong> = &lt;app.services.facade.HBnBFacade object&gt;<br>
-<strong>place_model</strong> = {'title': &lt;flask_restx.fields.String object at 0...sk_restx.fields.String object at 0x7fc938c6f310&gt;}</td></tr></table>
+<strong>place_model</strong> = {'title': &lt;flask_restx.fields.String object at 0...sk_restx.fields.String object at 0x7f602863f460&gt;}</td></tr></table>
 </body></html>

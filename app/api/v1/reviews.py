@@ -15,11 +15,23 @@ facade = HBnBFacade()
 
 @api.route('/')
 class ReviewList(Resource):
+    """
+    Resource for handling review operations such as creating and retrieving reviews.
+    """
     @api.expect(review_model)
     @api.response(201, 'Review successfully created')
     @api.response(400, 'Invalid input data')
     def post(self):
-        """Create a new review"""
+        """
+        Create a new review.
+
+        This endpoint allows for the creation of a new review. It validates the input data and
+        attempts to create the review.
+
+        Returns:
+            response (dict): Contains the ID of the newly created review and a success message.
+            status_code (int): 201 if creation is successful, otherwise 400 if input data is invalid.
+        """
         review_data = api.payload
         try:
             new_review = facade.create_review(review_data)
@@ -29,7 +41,15 @@ class ReviewList(Resource):
 
     @api.response(200, 'List of reviews retrieved successfully')
     def get(self):
-        """Retrieve a list of all reviews"""
+        """
+        Retrieve a list of all reviews.
+
+        This endpoint retrieves a list of all reviews with their details.
+
+        Returns:
+            response (list): A list of review objects with their details.
+            status_code (int): 200 if retrieval is successful.
+        """
         reviews = facade.get_all_reviews()
         return [
             {
@@ -44,10 +64,24 @@ class ReviewList(Resource):
 
 @api.route('/<review_id>')
 class ReviewResource(Resource):
+    """
+    Resource for handling individual review operations such as retrieving, updating, and deleting a review.
+    """
     @api.response(200, 'Review details retrieved successfully')
     @api.response(404, 'Review not found')
     def get(self, review_id):
-        """Get review details by ID"""
+        """
+        Get review details by ID.
+
+        This endpoint retrieves the details of a specific review based on its ID.
+
+        Args:
+            review_id (str): The ID of the review to retrieve.
+
+        Returns:
+            response (dict): The review's details if found.
+            status_code (int): 200 if retrieval is successful, otherwise 404 if the review is not found.
+        """
         try:
             review = facade.get_review(review_id)
             return review.to_dict(), 200
@@ -59,7 +93,18 @@ class ReviewResource(Resource):
     @api.response(404, 'Review not found')
     @api.response(400, 'Invalid input data')
     def put(self, review_id):
-        """Update a review's information"""
+        """
+        Update a review's information.
+
+        This endpoint updates the information of a specific review based on its ID.
+
+        Args:
+            review_id (str): The ID of the review to update.
+
+        Returns:
+            response (dict): A success message indicating that the review was updated.
+            status_code (int): 200 if update is successful, otherwise 404 if the review is not found or 400 if input data is invalid.
+        """
         review_data = api.payload
         try:
             updated_review = facade.update_review(review_id, **review_data)
@@ -70,7 +115,17 @@ class ReviewResource(Resource):
     @api.response(204, 'Review deleted successfully')
     @api.response(404, 'Review not found')
     def delete(self, review_id):
-        """Delete a review"""
+        """
+        Delete a review.
+
+        This endpoint deletes a specific review based on its ID.
+
+        Args:
+            review_id (str): The ID of the review to delete.
+
+        Returns:
+            status_code (int): 204 if deletion is successful, otherwise 404 if the review is not found.
+        """
         try:
             facade.delete_review(review_id)
             return '', 204
