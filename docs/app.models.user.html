@@ -42,7 +42,16 @@
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#User">User</a>(first_name,&nbsp;last_name,&nbsp;email,&nbsp;password,&nbsp;is_admin=False)<br>
 &nbsp;<br>
-<br>&nbsp;</tt></td></tr>
+<a href="#User">User</a>&nbsp;represents&nbsp;an&nbsp;individual&nbsp;who&nbsp;can&nbsp;interact&nbsp;with&nbsp;the&nbsp;system.<br>
+&nbsp;<br>
+Inherits&nbsp;from&nbsp;<a href="app.models.base_model.html#BaseModel">BaseModel</a>&nbsp;to&nbsp;include&nbsp;id,&nbsp;created_at,&nbsp;and&nbsp;updated_at&nbsp;attributes.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;first_name&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;first&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;last_name&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;last&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;email&nbsp;address.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;password.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is_admin&nbsp;(bool):&nbsp;Indicates&nbsp;if&nbsp;the&nbsp;user&nbsp;has&nbsp;admin&nbsp;privileges.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.models.user.html#User">User</a></dd>
@@ -51,21 +60,50 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="User-__init__"><strong>__init__</strong></a>(self, first_name, last_name, email, password, is_admin=False)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="User-__init__"><strong>__init__</strong></a>(self, first_name, last_name, email, password, is_admin=False)</dt><dd><tt>Initialize&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#User">User</a>.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;first_name&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;first&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;last_name&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;last&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;email&nbsp;address.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str):&nbsp;The&nbsp;user's&nbsp;password.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;is_admin&nbsp;(bool,&nbsp;optional):&nbsp;If&nbsp;True,&nbsp;the&nbsp;user&nbsp;has&nbsp;admin&nbsp;privileges.&nbsp;Defaults&nbsp;to&nbsp;False.</tt></dd></dl>
 
-<dl><dt><a name="User-delete"><strong>delete</strong></a>(self)</dt><dd><tt>Simulate&nbsp;user&nbsp;deletion</tt></dd></dl>
+<dl><dt><a name="User-delete"><strong>delete</strong></a>(self)</dt><dd><tt>Simulate&nbsp;user&nbsp;deletion.<br>
+&nbsp;<br>
+Additional&nbsp;deletion&nbsp;logic&nbsp;can&nbsp;be&nbsp;added&nbsp;here.</tt></dd></dl>
 
-<dl><dt><a name="User-register"><strong>register</strong></a>(self)</dt><dd><tt>Simulate&nbsp;user&nbsp;registration</tt></dd></dl>
+<dl><dt><a name="User-register"><strong>register</strong></a>(self)</dt><dd><tt>Simulate&nbsp;user&nbsp;registration&nbsp;by&nbsp;validating&nbsp;the&nbsp;email.<br>
+&nbsp;<br>
+Additional&nbsp;registration&nbsp;logic&nbsp;can&nbsp;be&nbsp;added&nbsp;here.</tt></dd></dl>
 
-<dl><dt><a name="User-to_dict"><strong>to_dict</strong></a>(self)</dt><dd><tt>Override&nbsp;to_dict&nbsp;to&nbsp;exclude&nbsp;password</tt></dd></dl>
+<dl><dt><a name="User-to_dict"><strong>to_dict</strong></a>(self)</dt><dd><tt>Override&nbsp;to_dict&nbsp;to&nbsp;exclude&nbsp;the&nbsp;password.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;dictionary&nbsp;containing&nbsp;the&nbsp;user's&nbsp;details,&nbsp;excluding&nbsp;the&nbsp;password.</tt></dd></dl>
 
-<dl><dt><a name="User-update_profile"><strong>update_profile</strong></a>(self, first_name=None, last_name=None, email=None, password=None)</dt><dd><tt>Update&nbsp;user&nbsp;profile&nbsp;information</tt></dd></dl>
+<dl><dt><a name="User-update_profile"><strong>update_profile</strong></a>(self, first_name=None, last_name=None, email=None, password=None)</dt><dd><tt>Update&nbsp;user&nbsp;profile&nbsp;information.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;first_name&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;new&nbsp;first&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;last_name&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;new&nbsp;last&nbsp;name.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;new&nbsp;email&nbsp;address.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;password&nbsp;(str,&nbsp;optional):&nbsp;The&nbsp;new&nbsp;password.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;email&nbsp;format&nbsp;is&nbsp;invalid.</tt></dd></dl>
 
-<dl><dt><a name="User-validate_email"><strong>validate_email</strong></a>(self)</dt><dd><tt>Validate&nbsp;email&nbsp;format</tt></dd></dl>
+<dl><dt><a name="User-validate_email"><strong>validate_email</strong></a>(self)</dt><dd><tt>Validate&nbsp;the&nbsp;email&nbsp;format.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;ValueError:&nbsp;If&nbsp;the&nbsp;email&nbsp;format&nbsp;is&nbsp;invalid.</tt></dd></dl>
 
 <hr>
 Methods inherited from <a href="app.models.base_model.html#BaseModel">app.models.base_model.BaseModel</a>:<br>
-<dl><dt><a name="User-save"><strong>save</strong></a>(self)</dt><dd><tt>Update&nbsp;the&nbsp;updated_at&nbsp;timestamp&nbsp;whenever&nbsp;the&nbsp;object&nbsp;is&nbsp;modified</tt></dd></dl>
+<dl><dt><a name="User-save"><strong>save</strong></a>(self)</dt><dd><tt>Update&nbsp;the&nbsp;updated_at&nbsp;timestamp.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;whenever&nbsp;the&nbsp;instance&nbsp;is&nbsp;modified&nbsp;to&nbsp;<br>
+reflect&nbsp;the&nbsp;current&nbsp;date&nbsp;and&nbsp;time.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="app.models.base_model.html#BaseModel">app.models.base_model.BaseModel</a>:<br>

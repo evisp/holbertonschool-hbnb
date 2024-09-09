@@ -34,7 +34,19 @@
 <tr bgcolor="#ffc8d8"><td rowspan=2><tt>&nbsp;&nbsp;&nbsp;</tt></td>
 <td colspan=2><tt><a href="#Place">Place</a>(title,&nbsp;description,&nbsp;price,&nbsp;latitude,&nbsp;longitude,&nbsp;owner_id)<br>
 &nbsp;<br>
-<br>&nbsp;</tt></td></tr>
+<a href="#Place">Place</a>&nbsp;represents&nbsp;a&nbsp;location&nbsp;available&nbsp;for&nbsp;rent.<br>
+&nbsp;<br>
+Inherits&nbsp;from&nbsp;<a href="app.models.base_model.html#BaseModel">BaseModel</a>&nbsp;to&nbsp;include&nbsp;id,&nbsp;created_at,&nbsp;and&nbsp;updated_at&nbsp;attributes.<br>
+&nbsp;<br>
+Attributes:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;The&nbsp;title&nbsp;of&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;(str):&nbsp;A&nbsp;brief&nbsp;description&nbsp;of&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;price&nbsp;(float):&nbsp;The&nbsp;price&nbsp;per&nbsp;night&nbsp;to&nbsp;rent&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;latitude&nbsp;(float):&nbsp;The&nbsp;latitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;longitude&nbsp;(float):&nbsp;The&nbsp;longitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;owner_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;user&nbsp;who&nbsp;owns&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenities&nbsp;(list):&nbsp;A&nbsp;list&nbsp;of&nbsp;amenities&nbsp;available&nbsp;at&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;reviews&nbsp;(list):&nbsp;A&nbsp;list&nbsp;of&nbsp;reviews&nbsp;associated&nbsp;with&nbsp;the&nbsp;place.<br>&nbsp;</tt></td></tr>
 <tr><td>&nbsp;</td>
 <td width="100%"><dl><dt>Method resolution order:</dt>
 <dd><a href="app.models.place.html#Place">Place</a></dd>
@@ -43,27 +55,65 @@
 </dl>
 <hr>
 Methods defined here:<br>
-<dl><dt><a name="Place-__init__"><strong>__init__</strong></a>(self, title, description, price, latitude, longitude, owner_id)</dt><dd><tt>Initialize&nbsp;self.&nbsp;&nbsp;See&nbsp;help(type(self))&nbsp;for&nbsp;accurate&nbsp;signature.</tt></dd></dl>
+<dl><dt><a name="Place-__init__"><strong>__init__</strong></a>(self, title, description, price, latitude, longitude, owner_id)</dt><dd><tt>Initialize&nbsp;a&nbsp;new&nbsp;instance&nbsp;of&nbsp;<a href="#Place">Place</a>.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title&nbsp;(str):&nbsp;The&nbsp;title&nbsp;of&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;description&nbsp;(str):&nbsp;A&nbsp;brief&nbsp;description&nbsp;of&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;price&nbsp;(float):&nbsp;The&nbsp;price&nbsp;per&nbsp;night&nbsp;to&nbsp;rent&nbsp;the&nbsp;place.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;latitude&nbsp;(float):&nbsp;The&nbsp;latitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;longitude&nbsp;(float):&nbsp;The&nbsp;longitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;owner_id&nbsp;(str):&nbsp;The&nbsp;ID&nbsp;of&nbsp;the&nbsp;user&nbsp;who&nbsp;owns&nbsp;the&nbsp;place.</tt></dd></dl>
 
 <dl><dt><a name="Place-add_amenity"><strong>add_amenity</strong></a>(self, amenity)</dt><dd><tt>Add&nbsp;an&nbsp;amenity&nbsp;to&nbsp;the&nbsp;place</tt></dd></dl>
 
-<dl><dt><a name="Place-add_review"><strong>add_review</strong></a>(self, review)</dt></dl>
+<dl><dt><a name="Place-add_review"><strong>add_review</strong></a>(self, review)</dt><dd><tt>Add&nbsp;an&nbsp;amenity&nbsp;to&nbsp;the&nbsp;place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;amenity&nbsp;(Amenity):&nbsp;An&nbsp;instance&nbsp;of&nbsp;the&nbsp;Amenity&nbsp;class.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TypeError:&nbsp;If&nbsp;the&nbsp;amenity&nbsp;is&nbsp;not&nbsp;an&nbsp;instance&nbsp;of&nbsp;Amenity.</tt></dd></dl>
 
-<dl><dt><a name="Place-remove_review"><strong>remove_review</strong></a>(self, review)</dt></dl>
+<dl><dt><a name="Place-remove_review"><strong>remove_review</strong></a>(self, review)</dt><dd><tt>Add&nbsp;a&nbsp;review&nbsp;to&nbsp;the&nbsp;place.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;review&nbsp;(Review):&nbsp;An&nbsp;instance&nbsp;of&nbsp;the&nbsp;Review&nbsp;class.<br>
+&nbsp;<br>
+Raises:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;TypeError:&nbsp;If&nbsp;the&nbsp;review&nbsp;is&nbsp;not&nbsp;an&nbsp;instance&nbsp;of&nbsp;Review.</tt></dd></dl>
 
-<dl><dt><a name="Place-to_dict"><strong>to_dict</strong></a>(self)</dt><dd><tt>Override&nbsp;to_dict&nbsp;to&nbsp;include&nbsp;amenities&nbsp;and&nbsp;owner&nbsp;details</tt></dd></dl>
+<dl><dt><a name="Place-to_dict"><strong>to_dict</strong></a>(self)</dt><dd><tt>Override&nbsp;to_dict&nbsp;to&nbsp;include&nbsp;amenities&nbsp;and&nbsp;owner&nbsp;details.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dict:&nbsp;A&nbsp;dictionary&nbsp;containing&nbsp;the&nbsp;place's&nbsp;details,&nbsp;including&nbsp;its&nbsp;amenities&nbsp;and&nbsp;reviews.</tt></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
 <dl><dt><strong>latitude</strong></dt>
+<dd><tt>Get&nbsp;the&nbsp;latitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;The&nbsp;latitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.</tt></dd>
 </dl>
 <dl><dt><strong>longitude</strong></dt>
+<dd><tt>Get&nbsp;the&nbsp;longitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;The&nbsp;longitude&nbsp;of&nbsp;the&nbsp;place's&nbsp;location.</tt></dd>
 </dl>
 <dl><dt><strong>price</strong></dt>
+<dd><tt>Get&nbsp;the&nbsp;price&nbsp;of&nbsp;the&nbsp;place.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;float:&nbsp;The&nbsp;price&nbsp;per&nbsp;night&nbsp;to&nbsp;rent&nbsp;the&nbsp;place.</tt></dd>
 </dl>
 <hr>
 Methods inherited from <a href="app.models.base_model.html#BaseModel">app.models.base_model.BaseModel</a>:<br>
-<dl><dt><a name="Place-save"><strong>save</strong></a>(self)</dt><dd><tt>Update&nbsp;the&nbsp;updated_at&nbsp;timestamp&nbsp;whenever&nbsp;the&nbsp;object&nbsp;is&nbsp;modified</tt></dd></dl>
+<dl><dt><a name="Place-save"><strong>save</strong></a>(self)</dt><dd><tt>Update&nbsp;the&nbsp;updated_at&nbsp;timestamp.<br>
+&nbsp;<br>
+This&nbsp;method&nbsp;should&nbsp;be&nbsp;called&nbsp;whenever&nbsp;the&nbsp;instance&nbsp;is&nbsp;modified&nbsp;to&nbsp;<br>
+reflect&nbsp;the&nbsp;current&nbsp;date&nbsp;and&nbsp;time.</tt></dd></dl>
 
 <hr>
 Data descriptors inherited from <a href="app.models.base_model.html#BaseModel">app.models.base_model.BaseModel</a>:<br>
