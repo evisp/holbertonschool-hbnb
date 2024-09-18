@@ -44,6 +44,7 @@ class UserList(Resource):
         if not all([user_data.get('first_name'), user_data.get('last_name'), user_data.get('email'), user_data.get('password')]):
             return {'error': 'Invalid input data'}, 400
 
+        # user_data['password'] = facade.hash_password(user_data['password'])
         new_user = facade.create_user(user_data)
         return {'id': str(new_user.id), 'message': 'User created successfully'}, 201
 

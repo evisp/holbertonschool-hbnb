@@ -1,5 +1,8 @@
 from app.models.base_model import BaseModel
+from flask_bcrypt import Bcrypt
 import re
+
+bcrypt = Bcrypt()
 
 class User(BaseModel):
     """
@@ -29,8 +32,21 @@ class User(BaseModel):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
-        self.password = password
+        # Hash the password when initializing a new user
+        self.password = self.hash_password(password)
         self.is_admin = is_admin
+    
+    def hash_password(self, password):
+        """
+        Hash the password before storing it.
+        """
+        return bcrypt.generate_password_hash(password).decode('utf-8')
+    
+    def verify_password(self, password):
+        """
+        Verifies if the provided password matches the hashed password.
+        """
+        return bcrypt.check_password_hash(self.password, password)
 
     def validate_email(self):
         """
@@ -89,7 +105,8 @@ class User(BaseModel):
             self.email = email
             self.validate_email()
         if password:
-            self.password = password
+            # Re-hash the new password if it's being updated
+            self.password = self.hash_password(password)
 
     def delete(self):
         """
