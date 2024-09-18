@@ -1,3 +1,4 @@
 flask
 flask-restx
 pip install pytest
+flask-jwt-extended
