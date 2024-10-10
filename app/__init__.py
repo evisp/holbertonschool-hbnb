@@ -7,7 +7,7 @@ def create_app():
     app = Flask(__name__)
     
     # Initialize the Flask-RESTx API
-    api = Api(app, version='1.0', title='HBnB API', description='HBnB Application API')
+    api = Api(app, version='1.0', title='My HBnB API', description='Cool HBnB Application API')
 
     # Placeholder for API namespaces (endpoints will be added later)
     # from .api.v1.users import api as users_ns
