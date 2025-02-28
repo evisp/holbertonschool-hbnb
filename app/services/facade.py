@@ -187,13 +187,16 @@ class HBnBFacade:
 
 
     def get_review(self, review_id):
+        # Ensure this method returns a single review object or raises an error if not found
         review = self.review_repo.get(review_id)
         if not review:
-            raise ValueError(f"Review with ID {review_id} not found.")
+            raise ValueError("Review not found")
         return review
 
     def get_all_reviews(self):
-        return self.review_repo.get_all()
+        # Ensure this method returns a list of review objects
+        reviews = self.review_repo.get_all()
+        return reviews
 
     def update_review(self, review_id, **kwargs):
         review = self.review_repo.get(review_id)

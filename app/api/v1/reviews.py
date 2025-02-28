@@ -1,5 +1,8 @@
+import logging
 from flask_restx import Namespace, Resource, fields
 from app.services.facade import HBnBFacade
+
+logging.basicConfig(level=logging.DEBUG)
 
 api = Namespace('reviews', description='Review operations')
 
@@ -22,6 +25,12 @@ class ReviewList(Resource):
         """Create a new review"""
         review_data = api.payload
         try:
+            # Validate place_id and user_id
+            if not facade.get_place(review_data['place_id']):
+                return {'error': 'Invalid place_id'}, 400
+            if not facade.get_user(review_data['user_id']):
+                return {'error': 'Invalid user_id'}, 400
+
             new_review = facade.create_review(review_data)
             return {'id': str(new_review.id), 'message': 'Review created successfully'}, 201
         except ValueError as e:
@@ -31,13 +40,14 @@ class ReviewList(Resource):
     def get(self):
         """Retrieve a list of all reviews"""
         reviews = facade.get_all_reviews()
+        logging.debug(f"Retrieved reviews: {reviews}")
         return [
             {
                 'id': str(review.id),  # Ensure it's a dictionary
-                'text': review.get('text'),
-                'rating': review.get('rating'),
-                'place_id': review.get('place_id'),
-                'user_id': review.get('user_id')
+                'text': review.text,
+                'rating': review.rating,
+                'place_id': review.place_id,
+                'user_id': review.user_id
             }
             for review in reviews
         ], 200
@@ -50,8 +60,10 @@ class ReviewResource(Resource):
         """Get review details by ID"""
         try:
             review = facade.get_review(review_id)
+            logging.debug(f"Retrieved review: {review}")
             return review.to_dict(), 200
         except ValueError as e:
+            logging.error(f"Error retrieving review: {e}")
             return {'error': str(e)}, 404
 
     @api.expect(review_model)
