@@ -10,9 +10,15 @@ def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
         with app.app_context():
-            # Initialize the database or in-memory data store
+            # Initialize the in-memory data store
             facade = HBnBFacade()
             yield client
+
+@pytest.fixture(autouse=True)
+def clear_repo(client):
+    # Clear the in-memory repository before each test
+    HBnBFacade().clear_places()
+    HBnBFacade().clear_users()
 
 # Create a user to use as an owner in place tests
 @pytest.fixture(scope='module')

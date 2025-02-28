@@ -11,9 +11,14 @@ def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
         with app.app_context():
-            # Initialize the database or in-memory data store
+            # Initialize the in-memory data store
             facade = HBnBFacade()
             yield client
+
+@pytest.fixture(autouse=True)
+def clear_repo(client):
+    # Clear the in-memory repository before each test
+    HBnBFacade().clear_users()
 
 # Test user creation API
 def test_create_user(client):
@@ -30,6 +35,15 @@ def test_create_user(client):
 
 # Test getting all users
 def test_get_users(client):
+    user_data = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john.doe@example.com',
+        'password': 'password123',
+        'is_admin': False
+    }
+    client.post('/api/v1/users/', data=json.dumps(user_data), content_type='application/json')
+    
     response = client.get('/api/v1/users/')
     assert response.status_code == 200
     assert isinstance(response.json, list)
@@ -37,8 +51,15 @@ def test_get_users(client):
 
 # Test getting a user by ID
 def test_get_user_by_id(client):
-    response = client.get('/api/v1/users/')
-    user_id = response.json[0]['id']
+    user_data = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john.doe@example.com',
+        'password': 'password123',
+        'is_admin': False
+    }
+    response = client.post('/api/v1/users/', data=json.dumps(user_data), content_type='application/json')
+    user_id = response.json['id']
 
     response = client.get(f'/api/v1/users/{user_id}')
     assert response.status_code == 200
@@ -46,8 +67,15 @@ def test_get_user_by_id(client):
 
 # Test updating a user
 def test_update_user(client):
-    response = client.get('/api/v1/users/')
-    user_id = response.json[0]['id']
+    user_data = {
+        'first_name': 'John',
+        'last_name': 'Doe',
+        'email': 'john.doe@example.com',
+        'password': 'password123',
+        'is_admin': False
+    }
+    response = client.post('/api/v1/users/', data=json.dumps(user_data), content_type='application/json')
+    user_id = response.json['id']
 
     updated_user_data = {
         'first_name': 'Johnathan',
